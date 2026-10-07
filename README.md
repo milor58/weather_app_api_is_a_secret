@@ -1,6 +1,7 @@
 # important 
 my api is hidden  *** ^^ you said never put the api key in the github ^^ ***
 it will never run unless you do these steps in how to run it 
+22b36bbe760e73e4256a8e7732296f98 this is an example  for an api ^_*
 # screenshots
 screenshot are inside the folder weater_app_web inside it you will see another folder named screenshot there is  4 screenshot 2 for laptop size and 2 for iphone 16 pro max display size
 # Weather Dashboard
