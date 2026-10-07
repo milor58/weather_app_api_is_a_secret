@@ -1,6 +1,8 @@
 # important 
 my api is hidden  *** ^^ you said never put the api key in the github ^^ ***
 it will never run unless you do these steps in how to run it 
+# screenshots
+screenshot are inside the folder weater_app_web inside it you will see another folder named screenshot there is  4 screenshot 2 for laptop size and 2 for iphone 16 pro max display size
 # Weather Dashboard
 A small weather app I built for Assignment 4. You type a city name and it shows the current weather from the OpenWeatherMap API: temperature, a short description, an icon, feels-like temperature, humidity, wind and pressure.
 I wanted the API key to stay private, so the browser never talks to OpenWeatherMap directly. It talks to a tiny Node server in this project, and that server adds the key (read from a `.env` file) and passes the request on. That way the key is not in the JavaScript and nobody can see it in DevTools.
