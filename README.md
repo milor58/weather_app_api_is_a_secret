@@ -1,66 +1,61 @@
+# important 
+my api is hidden  *** ^^ you said never put the api key in the github ^^ ***
+it will never run unless you do these steps in how to run it 
 # Weather Dashboard
+A small weather app I built for Assignment 4. You type a city name and it shows the current weather from the OpenWeatherMap API: temperature, a short description, an icon, feels-like temperature, humidity, wind and pressure.
+I wanted the API key to stay private, so the browser never talks to OpenWeatherMap directly. It talks to a tiny Node server in this project, and that server adds the key (read from a `.env` file) and passes the request on. That way the key is not in the JavaScript and nobody can see it in DevTools.
 
-Type a city, get its current weather from the [OpenWeatherMap](https://openweathermap.org/api) API.
+## What i needed 
 
-Shows temperature, conditions, a weather icon, feels-like, humidity, wind, and pressure.
-Includes a loading spinner, clear error messages (bad city, no connection, timeout, rate limit, bad key), and a Retry button.
-The background changes with the weather. Works on mobile and desktop.
+- Node.js 18 or newer. There is nothing to install with npm, the project has no dependencies.
+- A free OpenWeatherMap API key or open-meteo both are free to use
 
-The API key stays on the server (in `.env`). The browser only talks to this app's own
-`/api/weather` endpoint, so the key never appears in the page's JavaScript or in DevTools.
+## How to run it
 
-## Requirements
+1. Make a free account at https://openweathermap.org/api and copy your key from Profile > My API keys. A new key can take up to 2 hours before it starts working.
+2. In the project folder, copy `.env.example` and name the copy `.env`.
+3. Open `.env` and put your key after the equals sign, with no quotes and no spaces:
+```
+   OPENWEATHER_API_KEY=your_key_here
+```
+4. Start the server:
+```
+   node server.js
+```
+   (`npm start` does the same thing. On Windows PowerShell, if `npm start` is blocked, just use `node server.js`.)
+5. Open http://localhost:3000 in your browser.
 
-- Node.js 18 or newer (no `npm install` needed, there are no dependencies)
+Use this address and not the VS Code Live Server. The search only works through the Node server.
 
-## Setup
+If port 3000 is busy, change `PORT=3000` in `.env` to another number like 3001 and open that address instead.
 
-1. Create a free account at <https://openweathermap.org/api> and copy your API key
-   (Profile -> My API keys). **A new key can take up to 2 hours to activate.**
-2. Create your `.env` file from the example:
-   ```bash
-   cp .env.example .env
-   ```
-   (On Windows, duplicate `.env.example` and rename the copy to `.env`.)
-3. Open `.env` and replace `YOUR_API_KEY_HERE` with your key:
-   ```
-   OPENWEATHER_API_KEY=abc123...
-   ```
-4. Start the app:
-   ```bash
-   npm start
-   ```
-5. Open <http://localhost:3000>
+`.env` is in `.gitignore`, so the real key is never pushed to GitHub. Only `.env.example` with a placeholder is in the repo.
 
-`.env` is listed in `.gitignore`, so your key is never committed.
-Only `.env.example` (a placeholder) is in the repository.
+## Files
 
-## Project structure
+- `server.js`: the Node server. It serves the `public` folder and handles `/api/weather?city=...`.
+- `public/index.html`: the page.
+- `public/css/style.css`: the styling. The background color changes with the weather.
+- `public/js/api.js`: the fetch call with async/await and try/catch.
+- `public/js/ui.js`: updates the page (loading, errors, results).
+- `public/js/main.js`: connects the search form to the other two files.
 
-- `server.js` : tiny Node server. Serves `public/` and proxies `/api/weather?city=...` to OpenWeatherMap using the key from `.env`
-- `public/index.html`
-- `public/css/style.css`
-- `public/js/api.js` : fetch + error handling (async/await, try/catch)
-- `public/js/ui.js` : DOM updates (status, rendering, themes)
-- `public/js/main.js` : connects the form to api.js and ui.js
-- `.env.example` : placeholder (committed)
-- `.env` : your real key (git-ignored)
+## Loading and errors
 
-## How errors are handled
+While a request is running the app shows a spinner and the Search button is disabled. If something goes wrong it shows a message in plain words and a Try again button. These cases are handled:
 
-| Problem | What the user sees |
-|---|---|
-| Empty input | "Enter a city name to search." |
-| 404 city not found | "We couldn't find that city..." |
-| Missing / rejected API key | Message telling you to check `.env` |
-| 429 rate limit | "Too many requests..." |
-| 5xx / weather service down | "The weather service is having problems..." |
-| Server not running / offline | "Couldn't reach the app server..." |
-| No response in 12 s | "The request took too long..." |
+- empty search
+- city not found
+- missing or wrong API key
+- too many requests
+- weather service down
+- server not running or no internet
+- request taking too long (over 12 seconds)
 
-Every fetch is wrapped in `try/catch`, non-200 responses are checked explicitly, and API text is
-inserted with `textContent` (never `innerHTML`). The server also limits each visitor to 30 requests per minute.
+Every fetch is inside a try/catch, and any response that is not 200 is checked on purpose. API text goes on the page with `textContent`, never `innerHTML`.
 
-## Screenshot
+The layout works on phones and on desktop.
 
-Add `screenshot.png` here showing the page with weather for a city of your choice.
+## Author
+
+Hussein Ezzeddine, 232773
