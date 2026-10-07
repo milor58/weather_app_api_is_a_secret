@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="default">
+  <main class="app">
+    <h1 class="app__title">Weather</h1>
+
+    <form id="search-form" class="search" novalidate>
+      <label class="visually-hidden" for="city-input">City name</label>
+      <input id="city-input" class="search__input" type="text"
+             placeholder="Search for a city, e.g. Beirut" autocomplete="off" required>
+      <button id="search-btn" class="search__btn" type="submit">Search</button>
+    </form>
+
+    <section id="status" class="status" data-state="idle" role="status" aria-live="polite">
+      <div id="spinner" class="spinner" hidden></div>
+      <p id="status-text" class="status__text">Search for a city to see its current weather.</p>
+      <button id="retry-btn" class="retry" type="button" hidden>Try again</button>
+    </section>
+
+    <article id="weather" class="weather" hidden>
+      <header class="weather__head">
+        <h2 id="w-city" class="weather__city"></h2>
+        <p id="w-desc" class="weather__desc"></p>
+      </header>
+
+      <div class="weather__main">
+        <img id="w-icon" class="weather__icon" alt="" width="100" height="100">
+        <p class="weather__temp"><span id="w-temp"></span><span class="weather__unit">°C</span></p>
+      </div>
+
+      <dl class="weather__stats">
+        <div><dt>Feels like</dt><dd id="w-feels"></dd></div>
+        <div><dt>Humidity</dt><dd id="w-humidity"></dd></div>
+        <div><dt>Wind</dt><dd id="w-wind"></dd></div>
+        <div><dt>Pressure</dt><dd id="w-pressure"></dd></div>
+      </dl>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <span class="footer__rule" aria-hidden="true"></span>
+    <p class="footer__text">&copy; 2026 <span class="footer__name">Hussein Ezzeddine</span><span class="footer__id">232773</span></p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
